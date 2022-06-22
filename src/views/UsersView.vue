@@ -34,12 +34,14 @@ export default {
     }
   },
   mounted () {
+    const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/users'
+
     const requestOptions = {
       method: 'GET',
       redirect: 'follow'
     }
 
-    fetch('https://einund20.herokuapp.com/api/v1/users', requestOptions)
+    fetch(endpoint, requestOptions)
       .then(response => response.json())
       .then(result => result.forEach(user => {
         this.users.push(user)
