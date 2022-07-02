@@ -1,20 +1,20 @@
 <template>
-<h1>User list</h1>
+<h1><u>Ranking</u></h1>
 
   <table class="table table-dark">
     <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">username</th>
-      <th scope="col">coins</th>
-      <th scope="col">wins</th>
-      <th scope="col">losses</th>
-      <th scope="col">draws</th>
+      <th scope="col"><u>#</u></th>
+      <th scope="col"><u>username</u></th>
+      <th scope="col"><u>coins</u></th>
+      <th scope="col"><u>wins</u></th>
+      <th scope="col"><u>losses</u></th>
+      <th scope="col"><u>draws</u></th>
     </tr>
     </thead>
     <tbody>
       <tr class="col" v-for="user in users" :key="user.id">
-        <th scope="row">{{ user.id }}</th>
+        <th scope="row">{{ users.length }}</th>
         <td>{{ user.username }}</td>
         <td>{{ user.coins }}</td>
         <td>{{ user.wins }}</td>
@@ -35,12 +35,10 @@ export default {
   },
   mounted () {
     const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/users'
-
     const requestOptions = {
       method: 'GET',
       redirect: 'follow'
     }
-
     fetch(endpoint, requestOptions)
       .then(response => response.json())
       .then(result => result.forEach(user => {
@@ -52,5 +50,9 @@ export default {
 </script>
 
 <style scoped>
-
+h1 {
+  background-color: black;
+  color: white;
+  margin: auto;
+}
 </style>

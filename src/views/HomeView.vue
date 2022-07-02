@@ -1,18 +1,32 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Hello World!"/>
+  <h2>Bankier: <span id = "dealer"></span></h2>
+  <div id="dealer-cards">
+    <img src="src/assets/cards/herzDame.png" >
   </div>
+
+  <h2>Meine Karten: <span id ="you"></span></h2>
+  <div id="your-cards"></div>
+
+  <br>
+  <button id="hit">hit</button>
+  <button id="stay">stay</button>
+  <p id="results"></p>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
 </script>
+
+<style>
+#dealer-cards img{
+  height: 175px;
+  width: 125px;
+  margin: 1px;
+}
+
+#your-cards img{
+  height: 175px;
+  width: 125px;
+  margin: 1px;
+}
+</style>

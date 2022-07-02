@@ -1,14 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
+    <div class="container-fluid" id="navbar">
       <a class="navbar-brand" href="#">Einundzwanzig</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <router-link class="nav-link" to="/">Home</router-link>
-          <router-link class="nav-link" to="/about">About</router-link>
+          <router-link class="nav-link" to="/">Game</router-link>
+          <router-link class="nav-link" to="/about">Spielregeln</router-link>
           <router-link class="nav-link" to="/users">Users</router-link>
         </ul>
       </div>
@@ -23,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+.nav-link2{
+  padding: 8px 50px;
+}
 </style>
