@@ -1,7 +1,7 @@
 <template>
   <h2>Bankier: <span id = "dealer"></span></h2>
   <div id="dealer-cards">
-    <img src="src/assets/cards/herzDame.png" >
+    <img src="@/assets/cards/pik8.png" >
   </div>
 
   <h2>Meine Karten: <span id ="you"></span></h2>
