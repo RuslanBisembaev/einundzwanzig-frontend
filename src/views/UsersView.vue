@@ -6,15 +6,15 @@
     <tr>
       <th scope="col"><u>#</u></th>
       <th scope="col"><u>username</u></th>
-      <th scope="col"><u>coins</u></th>
+      <th scope="col" id="coins"><u>coins</u></th>
       <th scope="col"><u>wins</u></th>
       <th scope="col"><u>losses</u></th>
       <th scope="col"><u>draws</u></th>
     </tr>
     </thead>
     <tbody>
-      <tr class="col" v-for="user in users" :key="user.id">
-        <th scope="row">{{ users.length }}</th>
+      <tr class="col" v-for="user in users.sort(function (a, b) { return b.coins - a.coins})" :key="user.id">
+        <th scope="row">{{places}}</th>
         <td>{{ user.username }}</td>
         <td>{{ user.coins }}</td>
         <td>{{ user.wins }}</td>
@@ -30,7 +30,8 @@ export default {
   name: 'UsersView',
   data () {
     return {
-      users: []
+      users: [],
+      places: []
     }
   },
   mounted () {

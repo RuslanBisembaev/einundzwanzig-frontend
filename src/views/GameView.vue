@@ -39,7 +39,6 @@ export default {
           this.deck.push(types[i] + values[j])
         }
       }
-      console.log(this.deck)
     },
     shuffleDeck () {
       for (let i = 0; i < this.deck.length; i++) {
