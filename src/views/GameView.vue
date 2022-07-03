@@ -132,7 +132,7 @@ h2 {
 #dealer-cards img{
   height: 175px;
   width: 125px;
-  margin: 1px;
+  margin: 5px;
 }
 
 #your-cards img{
@@ -145,11 +145,17 @@ h2 {
   width: 100px;
   height: 50px;
   font-size: 20px;
+  background-color: green;
 }
 
 #stay {
   width: 100px;
   height: 50px;
   font-size: 20px;
+  background-color: red;
+}
+#results {
+  padding-top: 10px;
+  font-weight: bold;
 }
 </style>

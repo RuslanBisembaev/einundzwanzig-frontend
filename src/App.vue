@@ -16,8 +16,4 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
 }
-
-a{
-  font-weight: bold;
-}
 </style>
