@@ -4,8 +4,8 @@
       <a class="navbar-brand" href="#"><img src="@/assets/blackjack-logo.png"></a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <router-link class="nav-link" to="/">Spiel</router-link>
-          <router-link class="nav-link" to="/about">Spielregeln</router-link>
+          <router-link class="nav-link" to="/">Spielregeln</router-link>
+          <router-link class="nav-link" to="/game">Spiel</router-link>
           <router-link class="nav-link" to="/users">Rangliste</router-link>
         </ul>
       </div>
@@ -20,12 +20,8 @@ export default {
 </script>
 
 <style scoped>
-.nav-link2{
-  padding: 8px 50px;
-}
-
 #navbar img{
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 }
 </style>

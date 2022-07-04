@@ -1,28 +1,31 @@
 <template>
-  <h2>Bankier: <span id = "dealer-total"></span></h2>
-  <div id="dealer-cards">
-    <img id="hidden" src="cards/cardBack.png">
-  </div>
+  <div id="game" style="display: inline">
+    <h3>Bankier: <span id = "dealer-total"></span></h3>
+    <div id="dealer-cards">
+      <img id="hidden" style="display: inline" src="cards/cardBack.png">
+    </div>
 
-  <h2>Meine Karten: <span id ="your-total"></span></h2>
-  <div id="your-cards"></div>
+    <h3 id="myCards">Meine Karten: <span id ="your-total"></span></h3>
+    <div id="your-cards"></div>
 
-  <br>
-  <button id="hit">hit</button>
-  <button id="stay">stay</button>
-  <p id="results"></p>
+    <br>
+    <button id="hit" style="display:inline">hit</button>
+    <button id="stand" style="display:inline">stand</button>
+    <p id="results" style="display: none"></p>
+    <p><button id="playAgain" style="display: none">Play again</button></p></div>
 </template>
 
 <script>
 export default {
-  name: 'HomeView',
+  name: 'GameView',
   data () {
     return {
       dealerTotal: 0,
       yourTotal: 0,
       hidden: undefined,
       deck: [],
-      canHit: true
+      canHit: true,
+      element: undefined
     }
   },
   mounted () {
@@ -56,32 +59,11 @@ export default {
         this.yourTotal += this.getValue(card)
         document.getElementById('your-cards').append(cardImg)
       }
-      document.getElementById('stay').addEventListener('click', this.stay)
+      document.getElementById('stand').addEventListener('click', this.stand)
       document.getElementById('hit').addEventListener('click', this.hit)
     },
-    stay () {
-      this.endGame()
-      const dealerTotal = this.dealerTotal
-      const yourTotal = this.yourTotal
-      this.canHit = false
-      document.getElementById('hidden').src = 'cards/' + this.hidden + '.png'
-      let message = ''
-      if (yourTotal > 21) {
-        message = 'Du hast verloren!'
-      } else if (dealerTotal > 21) {
-        message = 'Du hast gewonnen!'
-      } else if (yourTotal === dealerTotal) {
-        message = 'Unentschieden!'
-      } else if (yourTotal > dealerTotal) {
-        message = 'Du hast gewonnen!'
-      } else if (yourTotal < dealerTotal) {
-        message = 'Du hast verloren!'
-      }
-      document.getElementById('dealer-total').innerText = dealerTotal
-      document.getElementById('your-total').innerText = yourTotal
-      document.getElementById('results').innerText = message
-    },
-    endGame () {
+    stand () {
+      this.hide()
       this.hidden = this.deck.pop()
       this.dealerTotal += this.getValue(this.hidden)
       while (this.dealerTotal < 17) {
@@ -91,6 +73,23 @@ export default {
         this.dealerTotal += this.getValue(card)
         document.getElementById('dealer-cards').append(cardImg)
       }
+      document.getElementById('hidden').src = 'cards/' + this.hidden + '.png'
+      let message = ''
+      if (this.yourTotal > 21) {
+        message = 'Du hast verloren!'
+      } else if (this.dealerTotal > 21) {
+        message = 'Du hast gewonnen!'
+      } else if (this.yourTotal === this.dealerTotal) {
+        message = 'Unentschieden!'
+      } else if (this.yourTotal > this.dealerTotal) {
+        message = 'Du hast gewonnen!'
+      } else if (this.yourTotal < this.dealerTotal) {
+        message = 'Du hast verloren!'
+      }
+      document.getElementById('dealer-total').innerText = this.dealerTotal
+      document.getElementById('your-total').innerText = this.yourTotal
+      document.getElementById('results').innerText = message
+      document.getElementById('results').style.display = 'inline'
     },
     hit () {
       if (!this.canHit) {
@@ -102,7 +101,7 @@ export default {
       this.yourTotal += this.getValue(card)
       document.getElementById('your-cards').append(cardImg)
 
-      if (this.yourTotal > 21) {
+      if (this.yourTotal > 20) {
         this.canHit = false
       }
     },
@@ -117,6 +116,49 @@ export default {
         return 10
       }
       return parseInt(value)
+    },
+    hide () {
+      this.element = document.getElementById('hit')
+      if (this.element.style.display !== 'none') {
+        this.element.style.display = 'none'
+      }
+      this.element = document.getElementById('stand')
+      if (this.element.style.display !== 'none') {
+        this.element.style.display = 'none'
+      }
+      this.element = document.getElementById('playAgain')
+      if (this.element.style.display === 'none') {
+        this.element.style.display = 'inline'
+      }
+      document.getElementById('playAgain').addEventListener('click', this.playAgain)
+    },
+    playAgain () {
+      location.reload()
+    },
+    createUser () {
+      const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/users'
+      const myHeaders = new Headers()
+      myHeaders.append('Content-Type', 'application/json')
+
+      const raw = JSON.stringify({
+        username: 'Beta',
+        coins: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0
+      })
+
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
     }
   }
 }
@@ -124,19 +166,18 @@ export default {
 
 <style>
 
-h2 {
-  padding-top: 40px;
-  font-weight: 900;
+#myCards {
+  padding-top: 20px;
 }
 
 #dealer-cards img{
-  height: 175px;
+  height: 160px;
   width: 125px;
   margin: 5px;
 }
 
 #your-cards img{
-  height: 175px;
+  height: 160px;
   width: 125px;
   margin: 5px;
 }
@@ -148,14 +189,16 @@ h2 {
   background-color: green;
 }
 
-#stay {
+#stand {
   width: 100px;
   height: 50px;
   font-size: 20px;
   background-color: red;
 }
 #results {
-  padding-top: 10px;
   font-weight: bold;
+}
+#playAgain {
+  background-color: lightgrey;
 }
 </style>

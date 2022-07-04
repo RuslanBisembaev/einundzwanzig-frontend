@@ -1,6 +1,7 @@
 <template>
   <navbar></navbar>
   <router-view/>
+  <iframe></iframe>
 </template>
 
 <script>
